@@ -20,6 +20,7 @@ public class AppliBiblio {
 	public static void main(String[] args){
 	/* TODO 3) Partie 2 Tester les méthodes d’affichage ci dessus pour vérifier le
 	bon fonctionnement de l’appli.*/
+		DataLivres infoLivre;
 	}
 }
 

@@ -110,7 +110,65 @@ public class DataLivresJeuEssai implements DataLivres{
 		@Override
 		public Livre findLivreById(int id) {
 			// TODO Auto-generated method stub
+			for(Livre livre : listeLivres) {
+				if(livre.getId()==id) {
+					return livre;
+				}
+			}
 			return null;
+		}
+		
+		@Override
+		public Auteur findAuteurByNom(String nom) {
+			// TODO Auto-generated method stub
+			for(Livre livre : listeLivres) {
+				if(livre.getAuteur().equals(nom)) {
+					return livre.getAuteur();
+				}
+			}
+			return null;
+		}
+		
+		@Override
+		public Auteur findAuteurById(int id) {
+			// TODO Auto-generated method stub
+			for(Auteur auteur : listeAuteurs) {
+				if(auteur.getId()==id) {
+					return auteur;
+				}
+			}
+			return null;
+		}
+		
+		@Override
+		public List findLivreByAuteurId(int auteurId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public List findLivreByAuteurNom(String nomAuteur) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public Livre findLivreByTitre(String titre) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public boolean removeLivre(int id) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public boolean saveLivre(Livre l) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		@Override
+		public void saveAuteur(Auteur a) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 }
