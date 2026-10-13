@@ -100,6 +100,7 @@ public class DataLivresJeuEssai implements DataLivres{
 		 return listeAuteurs;
 		 }
 		
+		
 		// TO IMPLEMENTS
 		@Override
 		public List<Livre> getListeLivres() {
@@ -107,6 +108,8 @@ public class DataLivresJeuEssai implements DataLivres{
 		}
 		
 		// TODO 1) Partie 2 : Implémenter les méthodes indiquées dans la partie Travail à faire.
+		
+		
 		@Override
 		public Livre findLivreById(int id) {
 			// TODO Auto-generated method stub
@@ -118,16 +121,18 @@ public class DataLivresJeuEssai implements DataLivres{
 			return null;
 		}
 		
+		
 		@Override
 		public Auteur findAuteurByNom(String nom) {
 			// TODO Auto-generated method stub
-			for(Livre livre : listeLivres) {
-				if(livre.getAuteur().equals(nom)) {
-					return livre.getAuteur();
+			for(Auteur auteur : listeAuteurs) {
+				if(auteur.getNom().equals(nom)) {
+					return auteur;
 				}
 			}
 			return null;
 		}
+		
 		
 		@Override
 		public Auteur findAuteurById(int id) {
@@ -140,35 +145,125 @@ public class DataLivresJeuEssai implements DataLivres{
 			return null;
 		}
 		
+		
 		@Override
-		public List findLivreByAuteurId(int auteurId) {
+		public List<Livre> findLivreByAuteurId(int auteurId) {
 			// TODO Auto-generated method stub
-			return null;
+			List<Livre> l = new ArrayList<>();
+			for(Livre livre : listeLivres) {
+				if(livre.getAuteur().getId() == auteurId) {
+					l.add(livre);
+				}
+			}
+			return l;
 		}
+		
+		
 		@Override
 		public List findLivreByAuteurNom(String nomAuteur) {
 			// TODO Auto-generated method stub
-			return null;
+			List<Livre> l = new ArrayList<>();
+			for(Livre livre : listeLivres) {
+				if(livre.getAuteur().getNom() == nomAuteur) {
+					l.add(livre);
+				}
+			}
+			return l;
 		}
+		
+		
 		@Override
 		public Livre findLivreByTitre(String titre) {
 			// TODO Auto-generated method stub
+			for(Livre livre : listeLivres) {
+				if(livre.getTitre() == titre) {
+					return livre;
+				}
+			}
 			return null;
 		}
+		
+		
 		@Override
-		public boolean removeLivre(int id) {
+		public Livre removeLivre(int id) {
 			// TODO Auto-generated method stub
-			return false;
+			for(Livre livre : listeLivres) {
+				if(livre.getId() == id) {
+					listeLivres.remove(livre);
+					return livre;
+				}
+			}
+			return null;
 		}
+		
+		
 		@Override
-		public boolean saveLivre(Livre l) {
+		public Livre saveLivre(Livre l) {
 			// TODO Auto-generated method stub
-			return false;
+			try {
+				boolean ajout = true;
+				for(Auteur auteur : listeAuteurs) {
+					if(l.getAuteur().equals(auteur)) {
+						listeLivres.add(l);
+						return l;
+					}
+				}
+				for(Livre livre : listeLivres) {
+					if(livre.equals(l)) {
+						System.out.println("Livre déjà existant");
+						ajout = false;
+					}
+				}
+				if(ajout == true) {
+					listeLivres.remove(l);
+					listeLivres.add(l);
+				}
+				
+			} catch(Exception e) {
+				System.out.println("Impossible");
+			}
+			return null;
 		}
+		
+		
 		@Override
 		public void saveAuteur(Auteur a) {
 			// TODO Auto-generated method stub
-			
+			boolean ajout = true;
+			for(Auteur auteur : listeAuteurs) {
+				if(auteur.equals(a)) {
+					System.out.println("Auteur déjà existant");
+					ajout = false;
+				}
+			}
+			if(ajout == true) {
+				listeAuteurs.remove(a);
+				listeAuteurs.add(a);
+			}
+		}
+		
+		
+		@Override
+		public Auteur findAuteurNomLike(String nom) {
+			// TODO Auto-generated method stub
+			for(Auteur auteur : listeAuteurs) {
+				if(auteur.getNom().contains(nom)) {
+					return auteur;
+				}
+			}
+			return null;
+		}
+		
+		
+		@Override
+		public Livre FindLivreTitreLike(String nom) {
+			// TODO Auto-generated method stub
+			for(Livre livre : listeLivres) {
+				if(livre.getTitre().contains(nom)) {
+					return livre;
+				}
+			}
+			return null;
 		}
 		
 }
