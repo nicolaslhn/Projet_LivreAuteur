@@ -3,6 +3,24 @@ package biblioteque;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Auteur;
+import entity.Livre;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
+import entity.*;
 
 public interface DataLivres {
 	

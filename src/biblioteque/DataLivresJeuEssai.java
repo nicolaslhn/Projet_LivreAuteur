@@ -3,6 +3,9 @@ package biblioteque;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Auteur;
+import entity.Livre;
+
 public class DataLivresJeuEssai implements DataLivres{
 	 private List<Auteur> listeAuteurs;
 	 private List<Livre> listeLivres;

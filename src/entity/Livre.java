@@ -1,6 +1,6 @@
-package biblioteque;
+package entity;
 
-class Livre {
+public class Livre {
 	private int id;
 	private String titre;
 	private int anneePublication;

@@ -1,6 +1,6 @@
-package biblioteque;
+package entity;
 
-class Auteur {
+public class Auteur {
 	
 	private int id;
 	private String nom;

@@ -2,6 +2,9 @@ package biblioteque;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entity.Auteur;
+import entity.Livre;
 public class AppliBiblio {
 	
 	// TODO 2) Partie 2 : Implémenter les méthodes indiquées dans la partie
