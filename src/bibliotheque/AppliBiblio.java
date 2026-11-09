@@ -1,4 +1,4 @@
-package biblioteque;
+package bibliotheque;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,11 @@ public class AppliBiblio {
 		Auteur auteur11 = new Auteur(67,"Guellati","Ilian");
 		Livre livretest = new Livre(500,"Être délégué", 2026,auteur11);
 		essaie.saveAuteur(auteur11);
-		essaie.saveLivre(livretest);
+		try {
+			essaie.saveLivre(livretest);
+		}catch (NonExistAuthorException e) {
+			System.out.println(e.getMessage());
+		}
 
 		System.out.println(essaie.findAuteurById(67).getNom());
 		System.out.println(essaie.findAuteurByNom("Guellati").getPrenom());

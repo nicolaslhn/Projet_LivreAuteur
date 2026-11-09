@@ -1,4 +1,4 @@
-package biblioteque;
+package bibliotheque;
 
 import entity.*;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package biblioteque;
+package bibliotheque;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public interface DataLivres {
 	public List findLivreByAuteurNom(String nomAuteur);
 	public Livre findLivreByTitre(String titre);
 	public Livre removeLivre(int id);
-	public Livre saveLivre(Livre l); 
+	public Livre saveLivre(Livre l) throws NonExistAuthorException; 
 	public void saveAuteur(Auteur a);
 	public Auteur findAuteurNomLike(String nom);
 	public Livre FindLivreTitreLike(String nom );

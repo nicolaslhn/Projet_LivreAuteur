@@ -1,4 +1,4 @@
-package biblioteque;
+package bibliotheque;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +201,7 @@ public class DataLivresJeuEssai implements DataLivres{
 		
 		
 		@Override
-		public Livre saveLivre(Livre l) {
+		public Livre saveLivre(Livre l) throws NonExistAuthorException{
 			// TODO Auto-generated method stub
 			try {
 				boolean ajout = true;
