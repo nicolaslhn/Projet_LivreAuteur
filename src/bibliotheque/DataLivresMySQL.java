@@ -55,18 +55,21 @@ public class DataLivresMySQL implements DataLivres {
 	
 	@Override
 	public Auteur findAuteurById(int id) {
-	Auteur a = null;
-	String rsql = "SELECT id, nom, prenom, FROM auteur WHERE id = ?";
-	try {
-		PreparedStatement pstmt = connexion.prepareStatement(rsql);
-		ResultSet rs = pstmt.executeQuery();
-		if(rs.next()) {
-			a = new Auteur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"));
+		connexion = myconnexion.getConnection();
+		Auteur a = null;
+		String rsql = "SELECT id, nom, prenom, FROM auteur WHERE id = ?";
+		try {
+			PreparedStatement pstmt = connexion.prepareStatement(rsql);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				a = new Auteur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"));
+			}
+			connexion.close();
+
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
-	} catch(SQLException e) {
-		e.printStackTrace();
-	}
-		return a;
+			return a;
 	}
 	
 	@Override
@@ -96,12 +99,29 @@ public class DataLivresMySQL implements DataLivres {
 	@Override
 	public Livre saveLivre(Livre l) throws NonExistAuthorException{
 	// TODO Auto-generated method stub
-	return null;
+		connexion = myconnexion.getConnection();
+		String rsql = "INSERT INTO livre(id,titre,anneePublication, auteur_id) VALUES (?,?,?,?)";
+		try {
+			PreparedStatement pstmt = connexion.prepareStatement(rsql);
+			pstmt.setInt(1, l.getId());
+			pstmt.setString(2, l.getTitre());
+			pstmt.setInt(3, l.getAnneePublication());
+			pstmt.setInt(4, l.getAuteur().getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				l = new Livre(rs.getInt("id"), rs.getString("titre"), rs.getInt("anneePublication"), l.getAuteur());
+			}
+			connexion.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return l;
 	}
 
 	@Override
 	public void saveAuteur(Auteur a) {
 		// TODO Auto-generated method stub
+		connexion = myconnexion.getConnection();
 		String rsql = "INSERT INTO auteur(id,nom,prenom) VALUES (?,?,?)";
 		try {
 			PreparedStatement pstmt = connexion.prepareStatement(rsql);
@@ -112,6 +132,7 @@ public class DataLivresMySQL implements DataLivres {
 			if(rs.next()) {
 				a = new Auteur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"));
 			}
+			connexion.close();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
