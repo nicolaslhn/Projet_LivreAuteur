@@ -232,7 +232,7 @@ public class DataLivresJeuEssai implements DataLivres{
 		
 		
 		@Override
-		public void saveAuteur(Auteur a) {
+		public Auteur saveAuteur(Auteur a) {
 			// TODO Auto-generated method stub
 			boolean ajout = true;
 			for(Auteur auteur : listeAuteurs) {
@@ -245,6 +245,7 @@ public class DataLivresJeuEssai implements DataLivres{
 				listeAuteurs.remove(a);
 				listeAuteurs.add(a);
 			}
+			return null;
 		}
 		
 		

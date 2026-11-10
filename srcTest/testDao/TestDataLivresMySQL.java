@@ -11,13 +11,13 @@ import entity.Auteur;
 class TestDataLivresMySQL {
 
 	@Test
-	void saveAuteurAjoutUnNouvelAuteur() {
-		DataLivres donnees = new DataLivresMySQL();
-		Auteur nouvelAuteur = new Auteur(100,"Nom", "Prenom");
-		donnees.saveAuteur(nouvelAuteur);
-		Auteur auteurTrouve = donnees.findAuteurById(100);
-		assertNotNull(auteurTrouve);
-		assertEquals("Nom",auteurTrouve.getNom());
+	void saveAuteurModif() {
+	   DataLivres donnees = new DataLivresMySQL();
+	   Auteur auteurModifie = new Auteur(20, "autreNom", "autrePrenom");
+	   donnees.saveAuteur(auteurModifie);
+	   Auteur auteurTrouve = donnees.findAuteurById(20);
+	   assertNotNull(auteurTrouve);
+	   assertEquals("autreNom", auteurTrouve.getNom());
 	}
 
 }

@@ -57,9 +57,10 @@ public class DataLivresMySQL implements DataLivres {
 	public Auteur findAuteurById(int id) {
 		connexion = myconnexion.getConnection();
 		Auteur a = null;
-		String rsql = "SELECT id, nom, prenom, FROM auteur WHERE id = ?";
+		String rsql = "SELECT id, nom, prenom FROM auteur WHERE id = ?";
 		try {
 			PreparedStatement pstmt = connexion.prepareStatement(rsql);
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				a = new Auteur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"));
@@ -69,7 +70,7 @@ public class DataLivresMySQL implements DataLivres {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-			return a;
+		return a;
 	}
 	
 	@Override
@@ -119,25 +120,51 @@ public class DataLivresMySQL implements DataLivres {
 	}
 
 	@Override
-	public void saveAuteur(Auteur a) {
-		// TODO Auto-generated method stub
-		connexion = myconnexion.getConnection();
-		String rsql = "INSERT INTO auteur(id,nom,prenom) VALUES (?,?,?)";
+	public Auteur saveAuteur(Auteur a) {
+		Connection c = myconnexion.getConnection();
+	
 		try {
-			PreparedStatement pstmt = connexion.prepareStatement(rsql);
-			pstmt.setInt(1, a.getId());
-			pstmt.setString(2, a.getNom());
-			pstmt.setString(3, a.getPrenom());
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				a = new Auteur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"));
-			}
-			connexion.close();
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
+			Auteur ar = null;
 		
+			PreparedStatement pstm = c.prepareStatement("SELECT * FROM auteur WHERE id = ?");
+			pstm.setInt(1, a.getId());
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				int idfordb = rs.getInt("id");
+				PreparedStatement ps = c.prepareStatement("UPDATE auteur SET nom = ?, prenom = ? WHERE id = ?");
+				ps.setString(1, a.getNom());
+				ps.setString(2, a.getPrenom());
+				ps.setInt(3, idfordb);	
+				if (ps.executeUpdate() > 0) {
+					ar = findAuteurById(idfordb);
+				}
+			} else {
+				String sql = "INSERT INTO auteur VALUES (0, ?, ?)";
+			
+				PreparedStatement ps = c.prepareStatement(
+				sql, Statement.RETURN_GENERATED_KEYS
+				);
+				ps.setString(1, a.getNom());
+				ps.setString(2, a.getPrenom());
+			
+				int nbLignesAffectee = ps.executeUpdate();
+				int newid = 0;
+			
+				if (nbLignesAffectee > 0) {
+					ResultSet rsgk = ps.getGeneratedKeys();
+					if (rsgk.next()) {
+						newid = (int) rsgk.getLong(1);
+					}
+				ar = findAuteurById(newid);
+				}
+			}
+			return ar;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		return null;
+		}
 	}
+
 
 	@Override
 	public Auteur findAuteurNomLike(String nom) {

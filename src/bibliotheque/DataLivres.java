@@ -34,7 +34,7 @@ public interface DataLivres {
 	public Livre findLivreByTitre(String titre);
 	public Livre removeLivre(int id);
 	public Livre saveLivre(Livre l) throws NonExistAuthorException; 
-	public void saveAuteur(Auteur a);
+	public Auteur saveAuteur(Auteur a);
 	public Auteur findAuteurNomLike(String nom);
 	public Livre FindLivreTitreLike(String nom );
 
